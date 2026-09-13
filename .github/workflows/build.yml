@@ -10,15 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - uses: subosito/flutter-action@v2
+
+      - name: Set up Java JDK
+        uses: actions/setup-java@v4
         with:
-          flutter-version: '3.19.0'
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
           channel: 'stable'
 
-      # Eksik Android proje dosyalarını otomatik oluşturur
-      - name: Create Android Project Files
-        run: flutter create --platforms=android .
+      - name: Re-create Android files safely
+        run: flutter create --platforms=android --org com.bizim.bonnetider --overwrite .
 
       - name: Get Dependencies
         run: flutter pub get
