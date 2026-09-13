@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Project Files
 
 on:
   push:
@@ -22,8 +22,9 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Re-create Android files safely
-        run: flutter create --platforms=android --org com.bizim.bonnetider --overwrite .
+      - name: Re-create Android and iOS files
+        run: |
+          flutter create --platforms=android,ios --org com.bizim.bonnetider --overwrite .
 
       - name: Get Dependencies
         run: flutter pub get
